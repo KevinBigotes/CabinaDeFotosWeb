@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#183e37">
+  <title>FotoClub · Tu cabina de fotos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">✳</span> FotoClub<span class="brand-dot">.</span></div>
+    <div class="privacy"><span class="dot" aria-hidden="true"></span> Tus fotos se quedan contigo</div>
+  </header>
+  <main>
+    <div class="intro">
+      <div><p class="eyebrow">Tu propia cabina de fotos</p><h1>Cuatro poses. Un recuerdo.</h1><p class="subtitle">Entra a la cabina, sonríe y crea tu tira de fotos.</p></div>
+      <button id="download" class="button primary" disabled><span aria-hidden="true">↓</span> Descargar tira</button>
+    </div>
+    <div class="workspace">
+      <section class="editor" aria-label="Área de edición">
+        <div class="editor-head"><span class="editor-title">Tu tira de fotos</span><span id="dimensions" class="badge">0 DE 4 FOTOS</span></div>
+        <div class="stage">
+          <div id="empty" class="empty">
+            <div class="sample-strip" aria-hidden="true"><span>01</span><span>02</span><span>03</span><span>04</span><b>FotoClub ✳</b></div><h2>Una sesión, cuatro momentos</h2>
+            <p>La cámara toma cuatro fotos con 3 segundos para cada pose. También puedes subir tus favoritas.</p>
+            <button id="emptyCamera" class="button accent">◎ Entrar a la cabina</button>
+            <button id="emptyUpload" class="text-button">O elegir fotos de tu dispositivo</button>
+            <small>Tus fotos se quedan en tu dispositivo.</small>
+          </div>
+          <canvas id="canvas" width="720" height="2220" hidden tabindex="0" aria-label="Tira de cuatro fotos editable. Selecciona un sticker y arrástralo, o usa las flechas para moverlo y Suprimir para eliminarlo."></canvas>
+        </div>
+        <div class="editor-foot"><span id="canvasHint">4 fotos · 3 segundos entre poses</span><span>EXPORTACIÓN PNG</span></div>
+      </section>
+      <aside class="sidebar" aria-label="Herramientas de edición">
+        <section class="panel"><h2><span class="step">01</span> Crea tu tira</h2>
+          <div class="source-actions"><button id="camera" class="button primary">◎ Entrar a la cabina</button><button id="upload" class="button">＋ Añadir fotos</button></div>
+          <input id="file" type="file" accept="image/*" multiple hidden>
+          <p id="photoCount" class="hint">Elige hasta 4 fotos. Se recortan al centro para llenar cada cuadro.</p>
+          <button id="reset" class="text-button" disabled>Empezar otra tira</button>
+        </section>
+        <section class="panel"><h2><span class="step">02</span> Cambia el ambiente</h2>
+          <div class="filters" id="filters">
+            <button class="filter" data-filter="none" aria-pressed="true" disabled><span class="swatch"></span>Original</button>
+            <button class="filter" data-filter="grayscale" aria-pressed="false" disabled><span class="swatch"></span>Grises</button>
+            <button class="filter" data-filter="sepia" aria-pressed="false" disabled><span class="swatch"></span>Sepia</button>
+            <button class="filter" data-filter="invert" aria-pressed="false" disabled><span class="swatch"></span>Invertir</button>
+            <button class="filter" data-filter="contrast" aria-pressed="false" disabled><span class="swatch"></span>Contraste alto</button>
+            <button class="filter" data-filter="blur" aria-pressed="false" disabled><span class="swatch"></span>Desenfoque</button>
+          </div>
+        </section>
+        <section class="panel"><h2><span class="step">03</span> Ponle personalidad</h2>
+          <div class="sticker-grid" id="stickers">
+            <button class="sticker" data-emoji="😎" aria-label="Añadir cara con gafas" disabled>😎</button>
+            <button class="sticker" data-emoji="❤️" aria-label="Añadir corazón" disabled>❤️</button>
+            <button class="sticker" data-emoji="✨" aria-label="Añadir estrellas" disabled>✨</button>
+            <button class="sticker" data-emoji="🌈" aria-label="Añadir arcoíris" disabled>🌈</button>
+          </div><p class="hint">Añade un sticker y arrástralo a donde quieras. Tócalo para seleccionarlo.</p>
+          <div class="sticker-controls"><label class="range-label" for="size">Tamaño del sticker <output id="sizeValue">15%</output></label><input id="size" type="range" min="5" max="40" value="15" disabled><button id="remove" class="text-button" disabled>Eliminar sticker seleccionado</button></div>
+        </section>
+      </aside>
+    </div>
+    <div id="status" class="status" role="status" aria-live="polite">Entra a la cabina o añade 4 fotos para empezar.</div>
+    <footer class="footer"><span>Hecho para experimentar.</span><span>Sin cuentas. Sin instalaciones.</span></footer>
+  </main>
+  <dialog id="cameraDialog" aria-labelledby="cameraTitle">
+    <div class="camera-heading"><h2 id="cameraTitle">Ponte cómodo. ¡Haz tu pose!</h2><button id="closeCamera" class="close" aria-label="Cerrar cámara">×</button></div>
+    <div class="camera-preview"><video id="video" autoplay muted playsinline></video><div id="countdown" class="countdown" aria-hidden="true" hidden></div></div>
+    <div class="camera-progress" aria-label="Progreso de la sesión"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+    <div class="camera-actions"><p id="cameraStatus" role="status">Conectando con tu cámara…</p><button id="capture" class="button primary" disabled>Comenzar · 4 fotos</button></div>
+  </dialog>
+  <script src="app.js" defer></script>
+</body>
+</html>
+
