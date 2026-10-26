@@ -4,13 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#183e37">
-  <title>FotoClub · Tu cabina de fotos</title>
+  <title>FotoClub · Tu foto de fotos</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark" aria-hidden="true">✳</span> FotoClub<span class="brand-dot">.</span></div>
-    <div class="privacy"><span class="dot" aria-hidden="true"></span> Tus fotos se quedan contigo</div>
+    <div class="topbar-right">
+      <div class="privacy"><span class="dot" aria-hidden="true"></span> Tus fotos se quedan contigo</div>
+      <div id="authNav" class="auth-nav">
+        <button id="openLogin" class="button button-sm">Iniciar sesión</button>
+        <div id="userProfile" class="user-profile" hidden>
+          <span id="userEmailBadge" class="badge user-badge" title="Usuario conectado"></span>
+          <button id="logoutBtn" class="text-button logout-btn" title="Cerrar sesión">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
   </header>
   <main>
     <div class="intro">
@@ -69,7 +78,76 @@
     <div class="camera-progress" aria-label="Progreso de la sesión"><span>1</span><span>2</span><span>3</span><span>4</span></div>
     <div class="camera-actions"><p id="cameraStatus" role="status">Conectando con tu cámara…</p><button id="capture" class="button primary" disabled>Comenzar · 4 fotos</button></div>
   </dialog>
+  <dialog id="loginDialog" class="login-dialog" aria-labelledby="authTitle">
+    <div class="modal-heading">
+      <div>
+        <p id="authEyebrow" class="eyebrow">Acceso FotoClub</p>
+        <h2 id="authTitle">Iniciar Sesión</h2>
+      </div>
+      <button id="closeLogin" class="close" aria-label="Cerrar ventana">×</button>
+    </div>
+    <p id="authSubtitle" class="modal-subtitle">Conecta con tu cuenta para guardar y sincronizar tus recuerdos.</p>
+    
+    <div class="auth-tabs" role="tablist" aria-label="Opciones de autenticación">
+      <button id="tabLogin" class="auth-tab active" type="button" role="tab" aria-selected="true" aria-controls="loginForm">Iniciar Sesión</button>
+      <button id="tabRegister" class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="registerForm">Crear Cuenta</button>
+    </div>
+
+    <div id="loginAlert" class="form-alert" role="alert" hidden></div>
+
+    <!-- Formulario de Inicio de Sesión -->
+    <form id="loginForm" class="auth-form" novalidate>
+      <div class="form-group">
+        <label for="loginEmail" class="form-label">Correo electrónico</label>
+        <input id="loginEmail" class="form-input" type="email" autocomplete="email" placeholder="ejemplo@correo.com" required>
+        <span id="emailError" class="field-error" aria-live="polite"></span>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword" class="form-label">Contraseña</label>
+        <input id="loginPassword" class="form-input" type="password" autocomplete="current-password" placeholder="••••••••" required>
+        <span id="passwordError" class="field-error" aria-live="polite"></span>
+      </div>
+      <div class="form-actions">
+        <button id="loginSubmit" type="submit" class="button primary w-full">
+          <span id="loginSpinner" class="btn-spinner" aria-hidden="true" hidden></span>
+          <span id="loginBtnText">Iniciar sesión</span>
+        </button>
+      </div>
+      <p class="auth-switch">¿Aún no tienes cuenta? <button id="switchToRegister" type="button" class="text-link">Regístrate gratis</button></p>
+    </form>
+
+    <!-- Formulario de Registro de Usuario -->
+    <form id="registerForm" class="auth-form" novalidate hidden>
+      <div class="form-group">
+        <label for="registerName" class="form-label">Nombre completo o alias</label>
+        <input id="registerName" class="form-input" type="text" autocomplete="name" placeholder="Tu nombre" required>
+        <span id="registerNameError" class="field-error" aria-live="polite"></span>
+      </div>
+      <div class="form-group">
+        <label for="registerEmail" class="form-label">Correo electrónico</label>
+        <input id="registerEmail" class="form-input" type="email" autocomplete="email" placeholder="ejemplo@correo.com" required>
+        <span id="registerEmailError" class="field-error" aria-live="polite"></span>
+      </div>
+      <div class="form-group">
+        <label for="registerPassword" class="form-label">Contraseña</label>
+        <input id="registerPassword" class="form-input" type="password" autocomplete="new-password" placeholder="Mínimo 6 caracteres" required>
+        <span id="registerPasswordError" class="field-error" aria-live="polite"></span>
+      </div>
+      <div class="form-group">
+        <label for="registerConfirmPassword" class="form-label">Confirmar contraseña</label>
+        <input id="registerConfirmPassword" class="form-input" type="password" autocomplete="new-password" placeholder="Repite tu contraseña" required>
+        <span id="registerConfirmPasswordError" class="field-error" aria-live="polite"></span>
+      </div>
+      <div class="form-actions">
+        <button id="registerSubmit" type="submit" class="button primary w-full">
+          <span id="registerSpinner" class="btn-spinner" aria-hidden="true" hidden></span>
+          <span id="registerBtnText">Crear mi cuenta</span>
+        </button>
+      </div>
+      <p class="auth-switch">¿Ya tienes una cuenta? <button id="switchToLogin" type="button" class="text-link">Inicia sesión aquí</button></p>
+    </form>
+  </dialog>
+  <script src="auth.js" defer></script>
   <script src="app.js" defer></script>
 </body>
 </html>
-

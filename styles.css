@@ -88,3 +88,42 @@
     @media(max-width:380px) { .sidebar { grid-template-columns:1fr; } .filters { grid-template-columns:repeat(3,1fr); } .sticker-grid { grid-template-columns:repeat(4,1fr); } .privacy { max-width:100px; } }
     @media(prefers-reduced-motion:reduce) { * { transition:none !important; } }
 
+    /* Estilos del Sistema de Autenticación / Login */
+    .topbar-right { display:flex; align-items:center; gap:16px; }
+    .auth-nav { display:flex; align-items:center; }
+    .button-sm { padding:8px 14px; font-size:12px; border-radius:8px; }
+    .user-profile { display:flex; align-items:center; gap:10px; }
+    .user-badge { max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-transform:none; letter-spacing:0; }
+    .logout-btn { padding:0; cursor:pointer; }
+    .logout-btn:hover { text-decoration:underline; }
+
+    .login-dialog { width:min(440px,calc(100% - 32px)); border:1px solid var(--line); border-radius:18px; padding:28px 24px 24px; color:var(--ink); background:white; }
+    .modal-heading { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:8px; gap:12px; }
+    .modal-heading h2 { font-size:22px; margin:0; letter-spacing:-.8px; font-weight:700; }
+    .modal-subtitle { color:var(--muted); font-size:13px; margin:0 0 18px; line-height:1.5; }
+    
+    .form-alert { padding:10px 14px; border-radius:10px; font-size:12px; margin-bottom:16px; background:#fdf2f2; border:1px solid #f6cfcf; color:#a52e27; line-height:1.4; }
+    .auth-form { display:grid; gap:14px; }
+    .form-group { display:flex; flex-direction:column; gap:5px; text-align:left; }
+    .form-label { font-size:12px; font-weight:650; color:var(--ink); }
+    .form-input { width:100%; border:1px solid var(--line); border-radius:10px; background:white; color:var(--ink); padding:11px 13px; font-size:13px; transition:border-color .15s, background-color .15s; }
+    .form-input::placeholder { color:#9aa59f; }
+    .form-input:focus { border-color:var(--green); outline:3px solid #b05c27; outline-offset:2px; }
+    .form-input[aria-invalid="true"] { border-color:#a52e27; background:#fffcfc; }
+    .field-error { font-size:11px; color:#a52e27; min-height:16px; margin-top:2px; display:block; }
+    
+    .form-actions { margin-top:6px; }
+    .w-full { width:100%; }
+    .btn-spinner { width:14px; height:14px; border:2px solid #ffffff44; border-top-color:#ffffff; border-radius:50%; display:inline-block; animation:spin .7s linear infinite; vertical-align:middle; margin-right:6px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* Pestañas y Alternancia entre Login y Registro */
+    .auth-tabs { display:flex; gap:6px; background:#eeefe9; padding:4px; border-radius:10px; margin-bottom:18px; }
+    .auth-tab { flex:1; border:0; background:transparent; padding:8px 12px; border-radius:7px; font-size:12px; font-weight:650; color:var(--muted); cursor:pointer; transition:background .18s, color .18s; }
+    .auth-tab:not(.active):hover { color:var(--ink); }
+    .auth-tab.active { background:white; color:var(--green); box-shadow:0 1px 4px #203a3414; }
+    .auth-switch { margin:14px 0 0; text-align:center; font-size:12px; color:var(--muted); }
+    .text-link { background:none; border:0; padding:0; color:var(--green); font-size:12px; font-weight:650; cursor:pointer; text-decoration:underline; font-family:inherit; }
+    .text-link:hover { color:#326550; }
+    .form-alert.success { background:#f0f7ec; border-color:#d1e7c4; color:#2a5a22; }
+
