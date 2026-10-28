@@ -10,12 +10,25 @@
  */
 
 // Configuración de la API en Render
-// Soporta variables globales, origen relativo automático (cuando el backend sirve el frontend) o URL externa
+// Soporta variables globales, detección de GitHub Pages o servidor propio
 const getApiBaseUrl = () => {
+  // 1. Prioridad: URL explícita configurada en window.API_URL_RENDER o window.__ENV__
   if (window.API_URL_RENDER) return window.API_URL_RENDER.replace(/\/+$/, '');
   if (window.__ENV__?.API_URL_RENDER) return window.__ENV__.API_URL_RENDER.replace(/\/+$/, '');
-  if (window.location.protocol.startsWith('http')) return '';
-  return 'https://tu-api-fotoclub.onrender.com';
+
+  // 2. Si se ejecuta en local (localhost) o servido desde el propio backend en Render
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return ''; // Usa rutas relativas al mismo servidor local
+  }
+
+  // 3. Si la página está alojada en Render (Web Service único que sirve el frontend y la API)
+  if (window.location.hostname.endsWith('onrender.com')) {
+    return ''; // Mismo origen en Render
+  }
+
+  // 4. Si está en GitHub Pages (*.github.io) u otro hosting estático externo,
+  // debe conectarse a tu Web Service en Render.
+  return window.API_URL_RENDER || 'https://cabina-backend.onrender.com';
 };
 const API_URL_RENDER = getApiBaseUrl();
 
@@ -453,6 +466,8 @@ async function handleRegisterSubmit(event) {
         throw new Error(data.message || 'Este correo electrónico ya está registrado.');
       } else if (response.status === 400) {
         throw new Error(data.message || data.error || 'Datos de registro incompletos o inválidos.');
+      } else if (response.status === 404) {
+        throw new Error('Servicio de backend no encontrado (Error 404). Si estás en GitHub Pages, asegúrate de haber desplegado el Web Service en Render y configurar su URL.');
       } else if (response.status >= 500) {
         throw new Error('Error en el servidor de Render al registrar el usuario.');
       } else {
