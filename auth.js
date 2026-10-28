@@ -351,7 +351,8 @@ async function handleLoginSubmit(event) {
   setLoading(true);
 
   try {
-    const endpoint = `${API_URL_RENDER.replace(/\/+$/, '')}/api/auth/login`;
+    const baseUrl = (window.API_URL_RENDER || getApiBaseUrl()).replace(/\/+$/, '');
+    const endpoint = `${baseUrl}/api/auth/login`;
 
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -444,7 +445,8 @@ async function handleRegisterSubmit(event) {
   setLoading(true);
 
   try {
-    const endpoint = `${API_URL_RENDER.replace(/\/+$/, '')}/api/auth/register`;
+    const baseUrl = (window.API_URL_RENDER || getApiBaseUrl()).replace(/\/+$/, '');
+    const endpoint = `${baseUrl}/api/auth/register`;
 
     const response = await fetch(endpoint, {
       method: 'POST',
